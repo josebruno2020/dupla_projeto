@@ -1,0 +1,51 @@
+body{
+    background-color: #FFE4C4;
+}
+.row{
+    margin:0;
+}
+.blur{
+    height: 700px;
+    width: 100%;
+    backdrop-filter: blur(5px);
+}  
+.form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form h2{
+    color:#00008B;
+}
+.form .form-group{
+    width: 300px;
+}
+.form-group .btn{
+    width: 100%;
+}
+
+.fundo-img{
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 700px;
+}
+.medalhao img{
+    width: 150px;
+}
+@media screen and (max-width:1024px){
+    .fundo-img, .blur{
+        height: 550px;
+    }
+    .fundo-img{
+        background-size: auto;
+    }
+}
+@media screen and (max-width:720px){
+    
+    .fundo-img, .blur{
+        height: 550px;
+    }
+}
