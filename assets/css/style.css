@@ -1,0 +1,62 @@
+.principal{
+    display: flex;
+    flex-direction: row;
+}
+.row{
+    flex-grow: 1;
+    margin:0;
+    display: block;
+}
+.menu{
+    width: 50px;
+    padding:15px;
+    float:left;
+    margin-right: 25px;
+    height: 100%;
+    background-color: #ccc;
+}
+.menu-item a{
+    display:none;
+}
+.menu-item {
+    width: 100%;
+}
+.menu-item:hover{
+    background-color:#00000026;
+}
+.form{
+    width: 100%;
+}
+.form-group{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom:35px;
+}
+.form-group label{
+    margin-left:10px;
+}
+.form-group input[type=radio]{
+    margin:0px 10px;
+}
+.form-control{
+    margin-left: 10px;
+}
+
+
+footer{
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width:1024px){
+    .form-group{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .form-group label{
+        margin-top: 15px;
+    }
+}
