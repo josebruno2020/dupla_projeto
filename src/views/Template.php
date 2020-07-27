@@ -9,12 +9,56 @@
     </header>
     <body>
         <div class="principal">
-            <div class="menu">
-                <div class="menu-item">
-                    <a href="<?=BASE_URL;?>cadastro/nome">Novo Nome</a>
-                </div>
+            <div class="menu" style="background-image:url('<?=BASE_URL;?>assets/images/fundo-menu.jpg');">
+                <ul>
+                    <li>
+                        <div class="menu-item">
+                            <a href="<?=BASE_URL;?>">Home</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div id="drop">
+                            <div class="drop-item">
+                                <a href="">Cadastro ></a> 
+                                <div class="dropdown-menu-item">
+                                    <a href="<?=BASE_URL;?>cadastro/nome">Cadastrar Nome</a>                       
+                                </div>
+                                <div class="dropdown-menu-item">
+                                    <a href="<?=BASE_URL;?>cadastro/visita">Cadastrar Visita</a>                       
+                                </div>
+                                <div class="dropdown-menu-item">
+                                    <a href="<?=BASE_URL;?>cadastro/curso">Cadastrar Curso</a>                       
+                                </div>
+                                <div class="dropdown-menu-item">
+                                    <a href="<?=BASE_URL;?>cadastro/dupla">Cadastrar Dupla</a>                       
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div id="drop">
+                            <div class="drop-item">
+                                <a href="">Listar ></a> 
+                                <div class="dropdown-menu-item">
+                                    <a href="<?=BASE_URL;?>lista/nome">Listar Nomes</a>                       
+                                </div>
+                                <div class="dropdown-menu-item">
+                                    <a href="<?=BASE_URL;?>lista/visita">Listar Visitas</a>                       
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="menu-item">
+                            <a href="<?=BASE_URL;?>home/sair">Sair</a>
+                        </div>
+                    </li>
+                </ul>   
+                
+                
             </div>
-            <div class="row">
+            <div class="row" style="background-image:url('<?=BASE_URL;?>assets/images/fundo.jpg');">
                 <?=$this->render($viewName, $viewData);?>
             </div>
         </div>

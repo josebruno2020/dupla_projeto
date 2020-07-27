@@ -3,14 +3,20 @@ $('.menu').css('height', alturaTela+'px');
 
 $('.menu').hover(function(){
     $(this).css('width', 'auto');
+    $('.drop-item a').css('display', 'block');
     $('.menu-item a').css('display', 'block');
+    $('.dropdown-menu-item').css('display', 'none');
 }, function(){
     $(this).css('width', '50px');
+    $('.drop-item a').css('display', 'none');
     $('.menu-item a').css('display', 'none');
 
 });
-
-
+$('li').hover(function(){
+    $(this).find('.dropdown-menu-item').show('fast');
+}, function(){
+    $(this).find('.dropdown-menu-item').hide('fast');
+});
 $(document).ready(function(){
     function limpa_formulario(){
         //Limpa os dados do formulário;
@@ -60,4 +66,29 @@ $(document).ready(function(){
             limpa_formulario();
         }
     });
+
+    //Formulario de novo nome, quando indica que a pessoa ja fez a consagracao, aparece o campo para preencher em qual turma;
+    $('#sim_consagracao').click(function(){
+        if($(this).prop('checked') == true){
+            $('.group-consagracao').css('display', 'flex');
+        } else{
+            $('.group-consagracao').hide();
+        }
+        
+    });
+    //Formulario de cadastrar visita, quando o resultado é positivo, aparece os outros campos;
+    $('#sim_resultado').click(function(){
+        if($(this).prop('checked') == true){
+            $('.group-resultado').css('display', 'flex');
+
+        } else{
+
+            $('.group-resultado').hide();
+        }
+        
+    });
+    
+
+
+
 });

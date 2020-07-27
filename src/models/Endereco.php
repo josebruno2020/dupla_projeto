@@ -13,6 +13,18 @@ class Endereco extends Model {
             return false;
         }
     }
+    public function  getOne($id){
+        $sql = $this->db->prepare("SELECT * FROM endereco WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            $this->info = $sql->fetch();
+            return $this->info;
+        } else{
+            return false;
+        }
+    }
 
     public function cadastrar($cep, $rua, $num, $bairro, $cidade, $uf){
         $sql = $this->db->prepare("INSERT INTO endereco SET cep = :cep, rua = :rua, num = :num, bairro = :bairro, cidade = :cidade, uf = :uf");
@@ -38,6 +50,24 @@ class Endereco extends Model {
         } else{
             return false;
         }
+    }
+
+    public function atualizar($id, $cep, $rua, $num, $bairro, $cidade, $uf){
+        $sql = $this->db->prepare("UPDATE endereco SET cep = :cep, rua = :rua, num = :num, bairro = :bairro, cidade = :cidade, uf = :uf WHERE id = :id");
+        $sql->bindValue(":cep", $cep);
+        $sql->bindValue(":rua", $rua);
+        $sql->bindValue(":num", $num);
+        $sql->bindValue(":bairro", $bairro);
+        $sql->bindValue(":cidade", $cidade);
+        $sql->bindValue(":uf", $uf);
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+    }
+
+    public function deletar($id){
+        $sql = $this->db->prepare("DELETE FROM endereco WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
     }
     
 }
