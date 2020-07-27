@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28-Jul-2020 às 00:06
+-- Tempo de geração: 28-Jul-2020 às 00:11
 -- Versão do servidor: 10.4.11-MariaDB
 -- versão do PHP: 7.4.4
 
@@ -86,7 +86,6 @@ CREATE TABLE `endereco` (
 
 INSERT INTO `endereco` (`id`, `cep`, `rua`, `num`, `bairro`, `cidade`, `uf`, `zona`) VALUES
 (6, 87010380, 'Rua Tomé de Souza', 296, 'Zona 02', 'Maringá', 'PR', NULL),
-(7, 60183, 'Avenida Santos Dumont', 3010, 'Praia do Futuro II', 'Fortaleza', 'CE', NULL),
 (8, 87010380, 'Rua Tomé de Souza', 295, 'Zona 02', 'Maringá', 'PR', NULL);
 
 -- --------------------------------------------------------
@@ -99,7 +98,16 @@ CREATE TABLE `finalidade_doacao` (
   `id` int(11) NOT NULL,
   `finalidade` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
--- Erro ao ler dados para tabela dupla_projeto.finalidade_doacao: #1064 - Você tem um erro de sintaxe no seu SQL próximo a 'FROM `dupla_projeto`.`finalidade_doacao`' na linha 1
+
+--
+-- Extraindo dados da tabela `finalidade_doacao`
+--
+
+INSERT INTO `finalidade_doacao` (`id`, `finalidade`) VALUES
+(1, 'Construção da Igreja'),
+(2, 'Construção do Mosteiro'),
+(3, 'Ajuda Sede'),
+(4, 'Afiliado');
 
 -- --------------------------------------------------------
 
@@ -167,15 +175,7 @@ CREATE TABLE `pessoa` (
   `convitecos` tinyint(1) DEFAULT 0,
   `con` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `pessoa`
---
-
-INSERT INTO `pessoa` (`id`, `nome`, `nascimento`, `id_endereco`, `fone1`, `fone2`, `email`, `id_profissao`, `recpub`, `recimgpel`, `conviteev`, `convitecos`, `con`) VALUES
-(6, 'José Bruno Campanholi dos Santos', '1997-03-12', 6, '', '988447123', 'josebrunocampanholi@gmail.com', 2, 0, 0, 0, 0, 1),
-(7, 'Brenda Kennery', '1992-12-21', 7, '', '', '', 1, 0, 0, 0, 0, 0),
-(8, 'José Bruno Campanholi dos Santos', '0000-00-00', 8, '', '988447123', 'josebrunocampanholi@gmail.com', 1, 0, 0, 0, 0, 0);
+-- Erro ao ler dados para tabela dupla_projeto.pessoa: #1064 - Você tem um erro de sintaxe no seu SQL próximo a 'FROM `dupla_projeto`.`pessoa`' na linha 1
 
 -- --------------------------------------------------------
 
@@ -229,13 +229,7 @@ CREATE TABLE `soldalicio` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `soldalicio`
---
-
-INSERT INTO `soldalicio` (`id`, `nome`) VALUES
-(1, 'Maringá');
+-- Erro ao ler dados para tabela dupla_projeto.soldalicio: #1064 - Você tem um erro de sintaxe no seu SQL próximo a 'FROM `dupla_projeto`.`soldalicio`' na linha 1
 
 -- --------------------------------------------------------
 
