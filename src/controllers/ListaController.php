@@ -36,8 +36,7 @@ class ListaController extends Controller {
                 $endereco->getOne($pessoa->info['id_endereco']);
                 $pro->getOne($pessoa->info['id_profissao']);
                 $profissao->getAll();
-                $pc->getOne($id);
-                if(isset($pc->info['id_curso'])){
+                if($pc->getOne($id) == true){
                     $consa->getOne($pc->info['id_curso']);
                 }
                 
@@ -126,6 +125,35 @@ class ListaController extends Controller {
         $_SESSION['flash'] = 'Nome atualizado com sucesso!';
         header("Location: ".BASE_URL."lista/nome/".$pessoa->info['id']);
         
+    }
+
+    public function visita(){
+        $visita = new Visita();
+        $dupla = new Dupla();
+        $visita->getAll();
+        $this->loadTemplate('visita-lista', [
+            'visita' => $visita,
+            'dupla' => $dupla
+        ]);
+    }
+
+    //O id que recebe é o da visita, pois toda parcela está relacionada a uma visita em específico;
+    public function parcela($id){
+        $pessoa = new Pessoa();
+        $visita = new Visita();
+        $pg = new Forma_pagamento();
+        $visita->getOne($id);
+        $pessoa->getOne($visita->info['id_pessoa']);
+        $pg->getOne($visita->info['id_forma_pagamento']);
+        $parcela = new Parcela();
+        $parcela->getParcelaVisita($id);
+
+        $this->loadTemplate('parcela-lista', [
+            'visita' => $visita,
+            'parcela' => $parcela,
+            'pessoa' => $pessoa,
+            'pg' => $pg
+        ]);
     }
 
 }

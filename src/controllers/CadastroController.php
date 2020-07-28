@@ -86,7 +86,7 @@ class CadastroController extends Controller {
 
     }
 
-    public function visita(){
+    public function visita($id = ''){
         $pessoa = new Pessoa();
         $pessoa->getAll();
         $dupla = new Dupla();
@@ -97,6 +97,16 @@ class CadastroController extends Controller {
         $fd->getAll();
         $soldalicio = new Soldalicio();
         $soldalicio->getAll();
+        //Caso receba algum id;
+        if(!empty($id)){
+            if($pessoa->idExistis($id) == true){
+                $pessoa->getOne($id);
+            } else{
+                header("Location: ".BASE_URL."cadastro/visita");
+            }
+            
+        }
+
         $flash = '';
         if(isset($_SESSION['flash'])) {
             $flash = $_SESSION['flash'];

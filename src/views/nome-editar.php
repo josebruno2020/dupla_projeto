@@ -76,18 +76,32 @@
         <div class="form-group group-consagracao">
             <label for="">Nº Turma:</label><br>
             <select name="turma" id="" class="form-control">
+                <?php if($pessoa->info['con'] == '1'):?>
                 <option value="<?=$consa->info['id'];?>"><?=$consa->info['turma']; ?></option>
+                <?php else: ?>
+                <option value=""></option>
+                <?php endif;?>
                 <?php foreach($consagracao->info as $con):?>
                     <option value="<?=$con['id'];?>"><?=$con['turma'];?></option>
                 <?php endforeach;?>
             </select> <br>
-            <label for=""><strong>Concluiu o Curso?</strong> </label>
-            <input type="radio" name="concluiu" id="" value="1" <?=$pc->info['concluido'] == '1' ? 'checked': '';?>>Sim
-            <input type="radio" name="concluiu" id="" value="0" <?=$pc->info['concluido'] == '0' ? 'checked': '';?>>Não
+            <?php if($pessoa->info['con']):?>
+                <label for=""><strong>Concluiu o Curso?</strong> </label>
+                <input type="radio" name="concluiu" id="" value="1" <?=$pc->info['concluido'] == '1' ? 'checked': '';?>>Sim
+                <input type="radio" name="concluiu" id="" value="0" <?=$pc->info['concluido'] == '0' ? 'checked': '';?>>Não
 
-            <label for=""><strong>Deseja Renovar o Curso?</strong> </label>
-            <input type="radio" name="renovou" id="" value="1" <?=$pc->info['renovacao'] == '1' ? 'checked': '';?>>Sim
-            <input type="radio" name="renovou" id="" value="0" <?=$pc->info['renovacao'] == '0' ? 'checked': '';?>>Não
+                <label for=""><strong>Deseja Renovar o Curso?</strong> </label>
+                <input type="radio" name="renovou" id="" value="1" <?=$pc->info['renovacao'] == '1' ? 'checked': '';?>>Sim
+                <input type="radio" name="renovou" id="" value="0" <?=$pc->info['renovacao'] == '0' ? 'checked': '';?>>Não
+            <?php else:?>
+                <label for=""><strong>Concluiu o Curso?</strong> </label>
+                <input type="radio" name="concluiu" id="" value="1">Sim
+                <input type="radio" name="concluiu" id="" value="0">Não
+
+                <label for=""><strong>Deseja Renovar o Curso?</strong> </label>
+                <input type="radio" name="renovou" id="" value="1">Sim
+                <input type="radio" name="renovou" id="" value="0">Não
+            <?php endif;?>
         </div>
         <div class="form-group">
             <input type="submit" value="Atualizar" class="form-control btn btn-success">
@@ -98,7 +112,9 @@
     <br>
     <h2>Visitas Cadastradas</h2>
     <hr>
+    <a href="<?=BASE_URL;?>cadastro/visita/<?=$pessoa->info['id'];?>">Cadastrar Visita</a><br><br>
     <table class="table table-striped table-hovertable-responsive-sm">
+        <div class="alert alert-info">Clique no Número de parcela para acessar o controle</div>
         <thead>
             <tr>
                 <th>Data</th>
@@ -106,6 +122,7 @@
                 <th>Resultado</th>
                 <th>Parcelas</th>
                 <th>Valor</th>
+                <th>Deletar</th>
             </tr>
         </thead>
         <?php if($visita->info == null): ?>
@@ -119,8 +136,21 @@
                     <?=$dupla->getOne($vis['id_dupla'])['nome1'].' - '.$dupla->getOne($vis['id_dupla'])['nome2'];?>
                 </td>
                 <td><?=$vis['resultado'] == '1' ? 'Doação' : 'Recusa';?></td>
-                <td><?=$vis['n_parcela'];?></td>
+                <td>
+                    <?php if($vis['n_parcela'] == null || $vis['n_parcela'] == 0):?>
+                        0
+                    <?php else: ?>
+                    <a href="<?=BASE_URL;?>lista/parcela/<?=$vis['id'];?>">
+                        <?=$vis['n_parcela'];?>
+                    </a>
+                    <?php endif;?>
+                </td>
                 <td><?=number_format($vis['valor'], 2, ',', ' ');?></td>
+                <td>
+                    <a onclick="return confirm('Tem certeza que deseja deletar a visita com TODOS os REGISTROS!?');" href="<?=BASE_URL;?>deletar/visita/<?=$vis['id'];?>">
+                        <img src="<?=BASE_URL;?>assets/images/deletar.png" alt="" width="30">
+                    </a>
+                </td>
             </tr>
 
         </tbody>

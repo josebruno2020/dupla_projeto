@@ -87,8 +87,17 @@ $(document).ready(function(){
         }
         
     });
-    
 
+});
 
+$('#marcar_pagamento').click(function(){
+    //Recolhendo o id do pagamento;
+    var id = $(this).attr('data-id');
+    $(this).remove();
 
+    $.ajax ({
+        url:'/dupla_projeto/ajax/marcar_pagamento/'+id,
+        type:'get'
+    });
+    location.reload();
 });

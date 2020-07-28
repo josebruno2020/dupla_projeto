@@ -1,6 +1,18 @@
 <?php
 class Visita extends Model {
     public $info;
+
+    public function idExistis($id){
+        $sql = $this->db->prepare("SELECT * FROM visita WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            return true;
+        } else{
+            return false;
+        }
+    }
     
     public function getAll(){
         $sql = $this->db->prepare("SELECT * FROM visita ORDER BY data asc");
@@ -13,6 +25,34 @@ class Visita extends Model {
             return false;
         }
     }
+
+    public function getTotalVisita(){
+        $sql = $this->db->prepare("SELECT COUNT(*) FROM visita");
+        $sql->execute();
+        return $this->info = $sql->fetch();
+    }
+
+    public function getTotalVisitaResultado($resultado){
+        $sql = $this->db->prepare("SELECT COUNT(*) FROM visita WHERE resultado = :resultado");
+        $sql->bindValue(":resultado", $resultado);
+        $sql->execute();
+        return $this->info = $sql->fetch();
+    }
+
+    public function getOne($id){
+        $sql = $this->db->prepare("SELECT * FROM visita WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            $this->info = $sql->fetch();
+            return $this->info;
+
+        } else {
+            return false;
+        }
+    }
+
     public function getByIdPessoa($id){
         $sql = $this->db->prepare("SELECT * FROM visita WHERE id_pessoa = :id");
         $sql->bindValue(":id", $id);
@@ -72,9 +112,22 @@ class Visita extends Model {
             return false;
         }
     }
+    public function updateN_parcela($n_parcela, $id){
+        $sql = $this->db->prepare("UPDATE visita SET n_parcela = :n_parcela WHERE id = :id");
+        $sql->bindValue(":n_parcela", $n_parcela);
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+
+    }
 
     public function deletarIdPessoa($id){
         $sql = $this->db->prepare("DELETE FROM visita WHERE id_pessoa = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+    }
+
+    public function deletar($id){
+        $sql = $this->db->prepare("DELETE FROM visita WHERE id = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();
     }

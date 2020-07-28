@@ -38,6 +38,7 @@ class Pessoa extends Model {
         }
     }
 
+
     public function cadastrar($nome, $nascimento, $id_endereco, $fone1, $fone2, $email, $id_profissao, $recpub, $recimgpel, $conviteev, $convitecos, $con){
 
         $sql = $this->db->prepare("INSERT INTO pessoa SET nome = :nome, nascimento = :nascimento, id_endereco = :id_endereco, fone1 = :fone1, fone2 = :fone2, email = :email, id_profissao = :id_profissao, recpub = :recpub, recimgpel = :recimgpel, conviteev = :conviteev, convitecos = :convitecos, con = :con");

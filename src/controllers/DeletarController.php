@@ -32,4 +32,32 @@ class DeletarController extends Controller {
         }
     }
 
+    public function visita($id){
+        $visita = new Visita();
+        $visita->getOne($id);
+        $pessoa = new Pessoa();
+        $pessoa->getOne($visita->info['id_pessoa']);
+        $parcela = new Parcela();
+        //Verificando o id;
+        if($visita->idExistis($id) == true){
+            $visita->deletar($id);
+            $parcela->deletarIdVisita($id);
+            header("Location: ".BASE_URL."lista/nome/".$pessoa->info['id']);
+        } else{
+            header("Location: ".BASE_URL."lista/nome");
+        }
+    }
+
+    public function parcela($id){
+        $parcela = new Parcela();
+        $parcela->getOne($id);
+        //Excluindo uma parcela, temos que diminuir um número de parcela na visita correspondente;
+        $visita = new Visita();
+        $visita->getOne($parcela->info['id_visita']);
+        $n_parcela = ($visita->info['n_parcela']) - 1;
+        $visita->updateN_parcela($n_parcela, $visita->info['id']);
+        $parcela->deletar($id);
+        header("Location: ".BASE_URL."lista/parcela/".$visita->info['id']);
+    }
+
 }

@@ -14,6 +14,31 @@ class Parcela extends Model {
         }
     }
 
+    public function getOne($id){
+        $sql = $this->db->prepare("SELECT * FROM parcela WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+
+        if($sql->rowCount()> 0){
+            $this->info = $sql->fetch();
+        } else{
+            return false;
+        }
+    }
+
+    public function getParcelaVisita($id_visita){
+        $sql = $this->db->prepare("SELECT * FROM parcela WHERE id_visita = :id_visita");
+        $sql->bindValue(":id_visita", $id_visita);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            $this->info = $sql->fetchAll();
+            return $this->info;
+        } else{
+            return false;
+        }
+    }
+
     public function cadastrar($n_parcela, $id_visita, $valor, $vencimento){
         $sql = $this->db->prepare("INSERT INTO parcela SET n_parcela = :n_parcela, id_visita = :id_visita, valor = :valor, vencimento = :vencimento");
 
@@ -24,8 +49,21 @@ class Parcela extends Model {
         $sql->execute();
     }
 
+    public function marcarPagamento($pagamento, $id){
+        $sql = $this->db->prepare("UPDATE parcela SET pagamento = :pagamento WHERE id = :id");
+        $sql->bindValue(":pagamento", $pagamento);
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+    }
+
     public function deletarIdVisita($id){
         $sql = $this->db->prepare("DELETE FROM parcela WHERE id_visita = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+    }
+
+    public function deletar($id){
+        $sql = $this->db->prepare("DELETE FROM parcela WHERE id = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();
     }
