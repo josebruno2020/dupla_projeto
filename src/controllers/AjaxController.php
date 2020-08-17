@@ -13,4 +13,24 @@ class AjaxController extends Controller {
         $parcela = new Parcela();
         $parcela->marcarPagamento($pagamento, $id);
     }
+
+    public function desmarcar_pagamento($id){
+        $pagamento = 0;
+        $parcela = new Parcela();
+        $parcela->marcarPagamento($pagamento, $id);
+    }
+
+    public function lista_filtrar(){
+        if(isset($_POST['lista_nome'])) {
+            $filtro = $_POST['lista_nome'];
+        } else{
+            $filtro = '';
+        }
+        $pessoa = new Pessoa();
+        $pessoa->porFiltro($filtro);
+        
+        $this->render('nome-filtro', [
+            'pessoa' => $pessoa
+        ]);
+    }
 }

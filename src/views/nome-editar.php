@@ -50,28 +50,38 @@
         </div>
         <div class="form-group">
             <label for="">Deseja Receber <strong>Publicações?</strong> </label><br>
-            <input type="radio" name="recpub" value="1" <?=$pessoa->info['recpub'] == '1' ? 'checked': '';?>>Sim <br>
-            <input type="radio" name="recpub" value="0" <?=$pessoa->info['recpub'] == '0' ? 'checked': '';?>>Não <br>
+            <input type="radio" name="recpub" value="1" id="sim_recpub" <?=$pessoa->info['recpub'] == '1' ? 'checked': '';?>>
+            <label for="sim_recpub" class="form-check-label">Sim</label>
+            <input type="radio" name="recpub" value="0" id="nao_recpub" <?=$pessoa->info['recpub'] == '0' ? 'checked': '';?>>
+            <label for="nao_recpub" class="form-check-label">Não</label>
         </div>
         <div class="form-group">
             <label for="">Deseja Receber a <strong>Imagem?</strong> </label><br>
-            <input type="radio" name="recimgpel" value="1" <?=$pessoa->info['recimgpel'] == '1' ? 'checked': '';?>>Sim <br>
-            <input type="radio" name="recimgpel" value="0" <?=$pessoa->info['recimgpel'] == '0' ? 'checked': '';?>>Não <br>
+            <input type="radio" name="recimgpel" value="1" id="sim_recimgpel" <?=$pessoa->info['recimgpel'] == '1' ? 'checked': '';?>>
+            <label for="sim_recimgpel" class="form-check-label">Sim</label>
+            <input type="radio" name="recimgpel" value="0" id="nao_recimgpel" <?=$pessoa->info['recimgpel'] == '0' ? 'checked': '';?>>
+            <label for="nao_recimgpel" class="form-check-label">Não</label>
         </div>
         <div class="form-group">
             <label for="">Deseja Receber Convite para <strong> Eventos?</strong></label><br>
-            <input type="radio" name="conviteev" value="1" <?=$pessoa->info['conviteev'] == '1' ? 'checked': '';?>>Sim <br>
-            <input type="radio" name="conviteev" value="0" <?=$pessoa->info['conviteev'] == '0' ? 'checked': '';?>>Não <br>
+            <input type="radio" name="conviteev" value="1" id="sim_conviteev" <?=$pessoa->info['conviteev'] == '1' ? 'checked': '';?>>
+            <label for="sim_conviteev" class="form-check-label">Sim</label>
+            <input type="radio" name="conviteev" value="0" id="nao_conviteev" <?=$pessoa->info['conviteev'] == '0' ? 'checked': '';?>>
+            <label for="nao_conviteev" class="form-check-label">Não</label>
         </div>
         <div class="form-group">
             <label for="">Deseja Receber Convite para <strong>Consagração?</strong> </label><br>
-            <input type="radio" name="convitecos" value="1" <?=$pessoa->info['convitecos'] == '1' ? 'checked': '';?>>Sim <br>
-            <input type="radio" name="convitecos" value="0" <?=$pessoa->info['convitecos'] == '0' ? 'checked': '';?>>Não <br>
+            <input type="radio" name="convitecos" value="1" id="sim_convitecos" <?=$pessoa->info['convitecos'] == '1' ? 'checked': '';?>>
+            <label for="sim_convitecos" class="form-check-label">Sim</label>
+            <input type="radio" name="convitecos" value="0" id="nao_convitecos" <?=$pessoa->info['convitecos'] == '0' ? 'checked': '';?>>
+            <label for="nao_convitecos" class="form-check-label">Não</label>
         </div>
         <div class="form-group">
             <label for="">Já fez a consagração?</label><br>
-            <input type="radio" name="consagracao" value="1" id="sim_consagracao" <?=$pessoa->info['con'] == '1' ? 'checked': '';?>>Sim <br>
-            <input type="radio" name="consagracao" value="0" <?=$pessoa->info['con'] == '0' ? 'checked': '';?>>Não <br>
+            <input type="radio" name="consagracao" value="1" id="sim_consagracao" <?=$pessoa->info['con'] == '1' ? 'checked': '';?>>
+            <label for="sim_consagracao" class="form-check-label">Sim</label>
+            <input type="radio" name="consagracao" value="0" id="nao_consagracao" <?=$pessoa->info['con'] == '0' ? 'checked': '';?>>
+            <label for="nao_consagracao" class="form-check-label">Não</label>
         </div>
         <div class="form-group group-consagracao">
             <label for="">Nº Turma:</label><br>
@@ -87,20 +97,28 @@
             </select> <br>
             <?php if($pessoa->info['con']):?>
                 <label for=""><strong>Concluiu o Curso?</strong> </label>
-                <input type="radio" name="concluiu" id="" value="1" <?=$pc->info['concluido'] == '1' ? 'checked': '';?>>Sim
-                <input type="radio" name="concluiu" id="" value="0" <?=$pc->info['concluido'] == '0' ? 'checked': '';?>>Não
+                <input type="radio" name="concluiu" id="sim_concluiu" value="1" <?=$pc->info['concluido'] == '1' ? 'checked': '';?>>
+                <label for="sim_concluiu" class="form-check-label">Sim</label>
+                <input type="radio" name="concluiu" id="nao_concluiu" value="0" <?=$pc->info['concluido'] == '0' ? 'checked': '';?>>
+                <label for="nao_concluiu" class="form-check-label">Não</label>
 
                 <label for=""><strong>Deseja Renovar o Curso?</strong> </label>
-                <input type="radio" name="renovou" id="" value="1" <?=$pc->info['renovacao'] == '1' ? 'checked': '';?>>Sim
-                <input type="radio" name="renovou" id="" value="0" <?=$pc->info['renovacao'] == '0' ? 'checked': '';?>>Não
+                <input type="radio" name="renovou" id="sim_renovou" value="1" <?=$pc->info['renovacao'] == '1' ? 'checked': '';?>>
+                <label for="sim_renovou" class="form-check-label">Sim</label>
+                <input type="radio" name="renovou" id="nao_renovou" value="0" <?=$pc->info['renovacao'] == '0' ? 'checked': '';?>>
+                <label for="nao_renovou" class="form-check-label">Não</label>
             <?php else:?>
                 <label for=""><strong>Concluiu o Curso?</strong> </label>
-                <input type="radio" name="concluiu" id="" value="1">Sim
-                <input type="radio" name="concluiu" id="" value="0">Não
+                <input type="radio" name="concluiu" id="sim_concluiu" value="1">
+                <label for="sim_concluiu" class="form-check-label">Sim</label>
+                <input type="radio" name="concluiu" id="nao_concluiu" value="0">
+                <label for="nao_concluiu" class="form-check-label">Não</label>
 
                 <label for=""><strong>Deseja Renovar o Curso?</strong> </label>
-                <input type="radio" name="renovou" id="" value="1">Sim
-                <input type="radio" name="renovou" id="" value="0">Não
+                <input type="radio" name="renovou" id="sim_renovou" value="1">
+                <label for="sim_renovou" class="form-check-label">Sim</label>
+                <input type="radio" name="renovou" id="nao_renovou" value="0">
+                <label for="nao_renovou" class="form-check-label">Não</label>
             <?php endif;?>
         </div>
         <div class="form-group">

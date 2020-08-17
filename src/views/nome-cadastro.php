@@ -47,29 +47,39 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="">Deseja Receber <strong>Publicações?</strong> </label><br>
-            <input type="radio" name="recpub" value="1">Sim <br>
-            <input type="radio" name="recpub" value="0">Não <br>
+            <label for="">Deseja Receber <strong>Publicações?</strong> </label>
+            <input type="radio" name="recpub" value="1" id="sim_recpub">
+            <label for="sim_recpub" class="form-check-label">Sim</label>
+            <input type="radio" name="recpub" value="0" id="nao_recpub">
+            <label for="nao_recpub" class="form-check-label">Não</label>
         </div>
         <div class="form-group">
-            <label for="">Deseja Receber a <strong>Imagem?</strong> </label><br>
-            <input type="radio" name="recimgpel" value="1">Sim <br>
-            <input type="radio" name="recimgpel" value="0">Não <br>
+            <label for="">Deseja Receber a <strong>Imagem?</strong> </label>
+            <input type="radio" name="recimgpel" value="1" id="sim_recimgpel">
+            <label for="sim_recimgpel" class="form-check-label">Sim</label>
+            <input type="radio" name="recimgpel" value="0" id="nao_recimgpel">
+            <label for="nao_recimgpel" class="form-check-label">Não</label> 
         </div>
         <div class="form-group">
-            <label for="">Deseja Receber Convite para <strong> Eventos?</strong></label><br>
-            <input type="radio" name="conviteev" value="1">Sim <br>
-            <input type="radio" name="conviteev" value="0">Não <br>
+            <label for="">Deseja Receber Convite para <strong> Eventos?</strong></label>
+            <input type="radio" name="conviteev" value="1" id="sim_conviteev">
+            <label for="sim_conviteev" class="form-check-label">Sim</label>
+            <input type="radio" name="conviteev" value="0" id="nao_conviteev">
+            <label for="nao_conviteev" class="form-check-label">Não</label>
         </div>
         <div class="form-group">
             <label for="">Deseja Receber Convite para <strong>Consagração?</strong> </label><br>
-            <input type="radio" name="convitecos" value="1">Sim <br>
-            <input type="radio" name="convitecos" value="0">Não <br>
+            <input type="radio" name="convitecos" value="1" id="sim_convitecos">
+            <label for="sim_convitecos" class="form-check-label">Sim</label>
+            <input type="radio" name="convitecos" value="0" id="nao_convitecos">
+            <label for="nao_convitecos" class="form-check-label">Não</label>
         </div>
         <div class="form-group">
             <label for="">Já fez a consagração?</label><br>
-            <input type="radio" name="consagracao" value="1" id="sim_consagracao">Sim <br>
-            <input type="radio" name="consagracao" value="0">Não <br>
+            <input type="radio" name="consagracao" value="1" id="sim_consagracao">
+            <label for="sim_consagracao" class="form-check-label">Sim</label>
+            <input type="radio" id="nao_consagracao" name="consagracao" value="0">
+            <label for="nao_consagracao" class="form-check-label">Não</label> 
         </div>
         <div class="form-group group-consagracao">
             <label for="">Nº Turma:</label><br>

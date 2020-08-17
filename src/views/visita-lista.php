@@ -11,6 +11,7 @@
         <thead>
             <tr>
                 <th>Data</th>
+                <th>Nome Visitado</th>
                 <th>Dupla</th>
                 <th>Resultado</th>
                 <th>Parcelas</th>
@@ -26,6 +27,10 @@
         <tbody>
             <tr>
                 <td><?=date('d/m/Y', strtotime($vis['data']));?></td>
+                <td>
+                    <?php $pessoa->getOne($vis['id_pessoa']);?>
+                    <?=$pessoa->info['nome'];?>
+                </td>
                 <td>
                     <?=$dupla->getOne($vis['id_dupla'])['nome1'].' - '.$dupla->getOne($vis['id_dupla'])['nome2'];?>
                 </td>
@@ -51,4 +56,13 @@
         <?php endforeach;?>
         <?php endif;?>
     </table>
+    <ul class="pagination">
+        <?php for($q=1;$q<=$total_paginas;$q++): ?>
+        <li class="<?php echo ($p==$q)?'active':''; ?>"><a href="<?=BASE_URL;?>?<?php
+        $w = $_GET;
+        $w['p'] = $q;
+        echo http_build_query($w);
+        ?>"><?php echo $q; ?></a></li>
+        <?php endfor; ?>
+    </ul> 
 </div>

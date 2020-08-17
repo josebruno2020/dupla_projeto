@@ -51,7 +51,12 @@ class Pessoa_consagracao extends Model {
         $sql = $this->db->prepare("DELETE FROM pessoa_consagracao WHERE id_pessoa = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();
+    }
 
+    public function deleteCon($id_curso){
+        $sql = $this->db->prepare("DELETE FROM pessoa_consagracao WHERE id_curso = :id_curso");
+        $sql->bindValue(":id_curso", $id_curso);
+        $sql->execute();
     }
     
 }

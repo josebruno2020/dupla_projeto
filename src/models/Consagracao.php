@@ -38,6 +38,16 @@ class Consagracao extends Model {
         }
     }
 
+    public function getAllSol($id_soldalicio){
+        $sql = $this->db->prepare("SELECT * FROM consagracao WHERE id_soldalicio = :id_soldalicio");
+        $sql->bindValue("id_soldalicio", $id_soldalicio);
+        $sql->execute();
+
+        if($sql->rowCount() > 0 ){
+            return $this->info = $sql->fetchAll();
+        }
+    }
+
     public function cadastrar($turma, $id_soldalicio, $inicio, $fim, $consagracao_data){
         $sql = $this->db->prepare("INSERT INTO consagracao SET turma = :turma, id_soldalicio = :id_soldalicio, inicio = :inicio, fim = :fim, consagracao_data = :consagracao_data");
 
@@ -46,6 +56,12 @@ class Consagracao extends Model {
         $sql->bindValue(":inicio", $inicio);
         $sql->bindValue(":fim", $fim);
         $sql->bindValue(":consagracao_data", $consagracao_data);
+        $sql->execute();
+    }
+
+    public function deleteSol($id_soldalicio){
+        $sql = $this->db->prepare("DELETE FROM consagracao WHERE id_soldalicio = :id_soldalicio");
+        $sql->bindValue(":id_soldalicio", $id_soldalicio);
         $sql->execute();
     }
     

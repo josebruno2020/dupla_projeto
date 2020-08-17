@@ -45,8 +45,10 @@
         </div>
         <div class="form-group">
             <label for="">Resultado*:</label>
-            <input type="radio" name="resultado" id="sim_resultado" value="1">Doação
-            <input type="radio" name="resultado"  value="0">Recusa
+            <label for="sim_resultado" class="form-check-label">Doação</label>
+            <input type="radio" name="resultado" id="sim_resultado" value="1">
+            <label for="nao_resultado" class="form-check-label">Recusa</label>
+            <input type="radio" name="resultado" id="nao_resultado"  value="0">
         </div>
         <div class="form-group group-resultado">
             <label for="">Finalidade:</label>
@@ -71,10 +73,8 @@
             <input type="number" name="parcela" id="" class="form-control">
         </div>
         <div class="form-group group-resultado" >
-            <label for="">Início:</label>
+            <label for="">Início das Parcelas:</label>
             <input type="date" name="inicio" id="" class="form-control">
-            <label for="">Término</label>
-            <input type="date" name="termino" id="" class="form-control">
         </div>
 
         <div class="form-group">

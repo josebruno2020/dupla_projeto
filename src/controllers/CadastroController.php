@@ -125,6 +125,7 @@ class CadastroController extends Controller {
     public function visitaAction(){
         $visita = new Visita();
         $parcela = new Parcela();
+        $pessoa = new Pessoa();
         //Recebendo os dados da visita;
         $id_pessoa = filter_input(INPUT_POST, 'pessoa');
         $data = filter_input(INPUT_POST, 'data');
@@ -148,6 +149,9 @@ class CadastroController extends Controller {
             if($visita->mesmoDia($id_pessoa, $data) == false){
                 //Cadastra a visita, e retorna o id;
                 $id_visita = $visita->cadastrar($id_pessoa, $id_dupla, $id_forma_pagamento, $id_finalidade, $id_soldalicio, $resultado, $data, $n_parcela, $valor, $inicio, $termino);
+                //Marcar na tabela de pessoa que ela foi visitada (com o numero 1);
+                $visitado = 1;
+                $pessoa->marcarVisita($id_pessoa, $visitado);
 
                 if($n_parcela != null || $n_parcela > 0){
                     //Um ciclo 'for' dependendo da quantidade de parcelas, vamos cadastrar na tabela de parcelas;
@@ -220,7 +224,6 @@ class CadastroController extends Controller {
             header("Location: ".BASE_URL."cadastro/curso");
             
         }
-
     }
 
     public function dupla(){
@@ -257,6 +260,27 @@ class CadastroController extends Controller {
         }
     }
 
+    public function soldalicio(){
+        $flash = '';
+        if(isset($_SESSION['flash'])) {
+            $flash = $_SESSION['flash'];
+            $_SESSION['flash'] = '';
+        }
+        $this->loadTemplate('soldalicio-cadastro', ['flash' => $flash]);
+    }
 
-    
+    public function soldalicioAction(){
+        $soldalicio = new Soldalicio();
+        //Recebendo os dados;
+        $nome = filter_input(INPUT_POST, 'nome');
+        if($nome){ 
+            $soldalicio->cadastrar($nome);
+            $_SESSION['flash'] = 'Soldalício cadastrado com sucesso!';
+            header("Location: ".BASE_URL."cadastro/soldalicio");
+
+        } else{
+            $_SESSION['flash'] = 'Preencha todos os campos!';
+            header("Location: ".BASE_URL."cadastro/soldalicio");
+        }
+    }
 }

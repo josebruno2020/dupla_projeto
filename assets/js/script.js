@@ -1,22 +1,10 @@
-var alturaTela = $(window).height();
-$('.menu').css('height', alturaTela+'px');
-
-$('.menu').hover(function(){
-    $(this).css('width', 'auto');
-    $('.drop-item a').css('display', 'block');
-    $('.menu-item a').css('display', 'block');
-    $('.dropdown-menu-item').css('display', 'none');
-}, function(){
-    $(this).css('width', '50px');
-    $('.drop-item a').css('display', 'none');
-    $('.menu-item a').css('display', 'none');
-
-});
+//Dropdown para menu
 $('li').hover(function(){
-    $(this).find('.dropdown-menu-item').show('fast');
+    $(this).find('#dropdown').show();
 }, function(){
-    $(this).find('.dropdown-menu-item').hide('fast');
+    $(this).find('#dropdown').hide();
 });
+
 $(document).ready(function(){
     function limpa_formulario(){
         //Limpa os dados do formulário;
@@ -71,32 +59,73 @@ $(document).ready(function(){
     $('#sim_consagracao').click(function(){
         if($(this).prop('checked') == true){
             $('.group-consagracao').css('display', 'flex');
-        } else{
-            $('.group-consagracao').hide();
-        }
-        
+        } 
+    });
+    $('#nao_consagracao').click(function(){
+        if($(this).prop('checked') == true){
+            $('.group-consagracao').css('display', 'none');
+        } 
     });
     //Formulario de cadastrar visita, quando o resultado é positivo, aparece os outros campos;
     $('#sim_resultado').click(function(){
         if($(this).prop('checked') == true){
             $('.group-resultado').css('display', 'flex');
 
-        } else{
+        } 
+    });
+    $('#nao_resultado').click(function(){
+        if($(this).prop('checked') == true){
+            $('.group-resultado').css('display', 'none');
 
-            $('.group-resultado').hide();
-        }
-        
+        } 
+    });
+    $('#lista_nome').bind('keyup', function(){
+        $('#form_lista').submit(function(e){
+            
+            var txt = $(this).serialize();
+            e.preventDefault();
+    
+            $.ajax({
+                url:'/dupla_projeto/ajax/lista_filtrar/',
+                type:'post',
+                data:txt,
+                success:function(data){
+                    $('#resultado').empty().html(data);
+                    console.log(txt);
+                }
+            });
+    
+            return false;
+        });
+    
+        $('#form_lista').trigger('submit');
+    
     });
 
 });
+//Requisição AJAX para filtrar nome;
 
-$('#marcar_pagamento').click(function(){
+//Requisição para marcar pagamento -> pagina de parcela;
+$('.marcar_pagamento').click(function(){
     //Recolhendo o id do pagamento;
     var id = $(this).attr('data-id');
-    $(this).remove();
+    
 
     $.ajax ({
         url:'/dupla_projeto/ajax/marcar_pagamento/'+id,
+        type:'get'
+    });
+    location.reload();
+});
+
+
+//Requisição para desmarcar pagamento;
+$('.desmarcar_pagamento').click(function(){
+    var id = $(this).attr('data-id');
+    
+
+    $.ajax ({
+        url:'/dupla_projeto/ajax/desmarcar_pagamento/'+id,
         type:'get'
     });
     location.reload();

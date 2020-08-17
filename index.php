@@ -2,6 +2,7 @@
 session_start();
 require 'src/Config.php';
 require 'src/routes.php';
+require 'vendor/autoload.php';
 
 //Um autoload para indentificar em qual pasta estará nossa classe; Controllers, models ou Core;
 spl_autoload_register(function($c) {

@@ -25,11 +25,16 @@
                     <input type="email" name="email" placeholder="E-mail" class="form-control" autofocus="true">
                 </div>
                 <div class="form-group">
-                    <input type="password" name="senha" placeholder="****" class="form-control">
+                    <input id="input_senha" type="password" name="senha" placeholder="****" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" name="" id="mostrar_senha" class="">
+                    <label for="mostrar_senha" class="form-check-label">Mostrar Senha</label>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Entrar" class="btn btn-primary">
                 </div>
+                
             </form>
         </div>
     </div>

@@ -42,6 +42,8 @@ class DeletarController extends Controller {
         if($visita->idExistis($id) == true){
             $visita->deletar($id);
             $parcela->deletarIdVisita($id);
+            $visitado = 0;
+            $pessoa->marcarVisita($visita->info['id_pessoa'], $visitado);
             header("Location: ".BASE_URL."lista/nome/".$pessoa->info['id']);
         } else{
             header("Location: ".BASE_URL."lista/nome");
@@ -58,6 +60,29 @@ class DeletarController extends Controller {
         $visita->updateN_parcela($n_parcela, $visita->info['id']);
         $parcela->deletar($id);
         header("Location: ".BASE_URL."lista/parcela/".$visita->info['id']);
+    }
+
+    public function soldalicio($id){
+        $soldalicio = new Soldalicio();
+        $consagracao =  new Consagracao();
+        $pc = new Pessoa_consagracao();
+        //Verifica se o id existe;
+        if($soldalicio->idExistis($id) == true){
+            $soldalicio->getOne($id);
+            //Pegando todos os cursos que tem o id do soldalicio;
+            $consagracao->getAllSol($id);
+            echo '<pre>';
+            print_r($consagracao->info);
+            //Deletar todos os registros de consagracao para os cursos que foram selecionados;
+            for($i=0;$i<count($consagracao->info);$i++){
+                $pc->deleteCon($consagracao->info[$i]['id']);
+            }
+            //Deletar os cursos com o id_soldalicio;
+            $consagracao->deleteSol($id);
+            //Só agora vamos deletar o soldalício em si;
+            $soldalicio->delete($id);
+            header("Location: ".BASE_URL."lista/soldalicio");
+        }
     }
 
 }

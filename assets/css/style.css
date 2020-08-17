@@ -1,61 +1,57 @@
-.principal{
+.topo{
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: auto;
+    
+}
+.menu{
+    width:100%;
+    height: auto;
     display: flex;
-    flex-direction: row;
+    justify-content: space-evenly;
+    
 }
 .row{
     flex-grow: 1;
     margin:0;
     display: block;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: auto;
 }
-#drop{
-    margin-bottom:20px;
+.ul-topo {
+    margin:0;
+    padding:0;
 }
-.drop-item{
-    background-color:#00000026;
-}
-.drop-item a{
-    display:none;
-}
-.menu{
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: auto;
-    width: 50px;
-    padding:15px;
-    float:left;
-    height: 100%;
-    
-}
-.menu a{
-    color:#fff;
-}
-.menu li{
+ul li,
+ul a {
+    font-size: large;
     list-style: none;
-    padding:10px 0px;
+    padding:0px 10px;
+    float: left;
+    line-height: 70px;
+    color:#561ae4;
 }
-.dropdown-menu-item{
-    margin-left:50px;
+ul a:hover{
+    color: #6e38ec;
 }
-.dropdown-menu-item a{
-    display:none;
-    padding:10px 15px;
-    background-color: #00000026;
+ul li:hover {
+    background-color: #5a1d1d;
 }
 
-.menu-item a{
-    display:none;
+#menu-dropdown{
+    height: 50px;
 }
-.menu-item {
-    width: 100%;
-    margin-bottom:15px;
+#dropdown {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    float: none;
+    width: 200px;
+    height: auto;
+    background-color: #5a1d1d;
 }
-.menu-item:hover{
-    background-color:#00000026;
+.fundo-img{
+    min-height: 100vh;
 }
-.cadastro{
+.cadastro, .lista{
     background-color: #FFFAFAaa;    
     backdrop-filter: blur(2px);
 }
@@ -80,15 +76,23 @@
 .form-control{
     margin-left: 10px;
 }
+
 .group-consagracao{
     display:none;
 }
 .group-resultado{
     display:none;
 }
-.lista{
-    background-color: #FFFAFAaa;    
-    backdrop-filter: blur(2px);
+
+
+.form-check {
+    display: flex;
+    justify-content: space-between;
+}
+
+.marcar_pagamento,
+.desmarcar_pagamento{
+    width: 190px;
 }
 
 footer{

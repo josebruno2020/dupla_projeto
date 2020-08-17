@@ -59,7 +59,7 @@ class Visita extends Model {
         $sql->execute();
 
         if($sql->rowCount() > 0){
-            $this->info = $sql->fetch();
+            $this->info = $sql->fetchAll();
             return $this->info;
 
         } else {
@@ -78,6 +78,19 @@ class Visita extends Model {
         } else {
             return false;
         }
+    }
+    public function getTotalPagina($page, $perPage){
+        $offset = ($page - 1) * $perPage;
+
+        $sql = $this->db->prepare("SELECT * FROM pessoa ORDER BY nome ASC LIMIT $offset, $perPage");
+        $sql->execute();
+
+        if($sql->rowCount() > 0) {
+            $this->info = $sql->fetchAll();
+
+        }
+
+        return $this->info;
     }
 
     public function cadastrar($id_pessoa, $id_dupla, $id_forma_pagamento, $id_finalidade, $id_soldalicio, $resultado, $data, $n_parcela, $valor, $inicio, $termino){

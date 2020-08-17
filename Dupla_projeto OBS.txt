@@ -1,0 +1,3 @@
+-> id_regiao: uma nova tabela para juntar com a região e bairro;
+
+-> Visita: um campo para procurar o nome;

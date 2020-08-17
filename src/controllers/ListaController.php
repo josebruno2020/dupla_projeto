@@ -11,8 +11,15 @@ class ListaController extends Controller {
     public function nome($id = ''){
         $pessoa = new Pessoa();
         $pessoa->getAll();
+        $total_nome = count($pessoa->info);
+        $p = 1;
+        if(isset($_GET['p']) && !empty($_GET['p'])) {
+            $p = addslashes($_GET['p']);
+        }
+        $por_pagina = 25;
+        $total_paginas = ceil($total_nome / $por_pagina);
+        $pessoa->getTotalPagina($p, $por_pagina);
         
-
         if(!empty($id)){
             if($pessoa->idExistis($id) == true){
                 $flash = '';
@@ -48,7 +55,6 @@ class ListaController extends Controller {
                     $idade = 0;
                 }
                 
-
                 $view = 'nome-editar';
                 $dados = array(
                     'pessoa' => $pessoa,
@@ -70,7 +76,11 @@ class ListaController extends Controller {
             
         } else{
             $view = 'nome-lista';
-            $dados = array('pessoa' => $pessoa);
+            $dados = array(
+                'pessoa' => $pessoa,
+                'total_paginas' => $total_paginas,
+                'p' => $p
+            );
         }
 
         $this->loadTemplate($view, $dados);
@@ -130,10 +140,25 @@ class ListaController extends Controller {
     public function visita(){
         $visita = new Visita();
         $dupla = new Dupla();
+        $pessoa = new Pessoa();
         $visita->getAll();
+        $total_visita = count($visita->info);
+        $p = 1;
+        if(isset($_GET['p']) && !empty($_GET['p'])) {
+            $p = addslashes($_GET['p']);
+        }
+        $por_pagina = 25;
+        $total_paginas = ceil($total_visita / $por_pagina);
+        $visita->getTotalPagina($p, $por_pagina);
+        
+
         $this->loadTemplate('visita-lista', [
             'visita' => $visita,
-            'dupla' => $dupla
+            'dupla' => $dupla,
+            'pessoa' => $pessoa,
+            'p' => $p,
+            'total_paginas' => $total_paginas,
+            
         ]);
     }
 
@@ -147,13 +172,38 @@ class ListaController extends Controller {
         $pg->getOne($visita->info['id_forma_pagamento']);
         $parcela = new Parcela();
         $parcela->getParcelaVisita($id);
+        $total_pagar = 0;
+        $total_pago = 0;
+        //Definir quanto a pessoa já pagou somando os valores onde a coluna 'pagamento' for '1';
+        for($i=0;$i<count($parcela->info);$i++){
+            if($parcela->info[$i]['pagamento'] == '1'){
+                $total_pago = $total_pago + intval($parcela->info[$i]['valor']);
+            } else{
+                $total_pagar = $total_pagar + intval($parcela->info[$i]['valor']);
+            }
+        }
 
         $this->loadTemplate('parcela-lista', [
             'visita' => $visita,
             'parcela' => $parcela,
             'pessoa' => $pessoa,
-            'pg' => $pg
+            'pg' => $pg,
+            'total_pago' => $total_pago,
+            'total_pagar' => $total_pagar
         ]);
+    }
+
+    public function soldalicio(){
+        $soldalicio = new Soldalicio();
+        $soldalicio->getAll();
+        $this->loadTemplate('soldalicio-lista', ['soldalicio' => $soldalicio]);
+    }
+
+    public function dupla(){
+        $dupla =  new Dupla();
+        $dupla->getAll();
+        $this->loadTemplate('dupla-lista', ['dupla' => $dupla]);
+
     }
 
 }
