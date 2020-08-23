@@ -12,7 +12,11 @@ class ImpressaoController extends Controller {
     }
 
     public function index(){
-        $this->loadTemplate('impressao');
+        $usuarios = new Usuarios();
+        $usuarios->getOne($_SESSION['lgusuario']);
+        $this->loadTemplate('impressao', [
+            'usuarios' => $usuarios
+        ]);
     }
 
     public function impressao(){
@@ -21,6 +25,7 @@ class ImpressaoController extends Controller {
         $visita = new Visita();
         $dupla = new Dupla();
         $profissao = new Profissao();
+        $regiao = new Regiao();
         //Recebendo os dados do Checkbox, que estão em formato de array;
         //$busca = $_POST['busca'];
         //Recebendo os dados informados;
@@ -50,7 +55,8 @@ class ImpressaoController extends Controller {
             'visita' => $visita,
             'titulo' => $titulo,
             'dupla' => $dupla,
-            'profissao' => $profissao
+            'profissao' => $profissao,
+            'regiao' => $regiao
         ]);
         $impressao = ob_get_contents();
         ob_end_clean();

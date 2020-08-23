@@ -3,7 +3,7 @@
     <hr>
         <form method="POST" class="form form-inline" id="form_lista">
             <input type="text" name="lista_nome" id="lista_nome" class="form-control" placeholder="Pesquise aqui..." autofocus="true">
-            <input type="submit" value="Buscar" class="btn btn-success">
+            <input type="submit" value="Buscar" class="btn btn-info">
         </form>
     <div id="resultado">
         <table class="table table-striped table-hovertable-responsive-sm">

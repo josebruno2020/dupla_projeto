@@ -17,6 +17,7 @@
                     <li>
                         <div id="menu-dropdown">
                             <a href="">Cadastro </a> 
+                            <img src="<?=BASE_URL;?>assets/images/arrow.png" alt="Dropdown" width="20">
                         </div>
                         <div id="dropdown">
                             <a href="<?=BASE_URL;?>cadastro/nome">Cadastrar Nome</a>
@@ -28,7 +29,8 @@
                     </li>
                     <li>
                         <div id="menu-dropdown">
-                            <a href="">Listar ></a> 
+                            <a href="">Listar</a> 
+                            <img src="<?=BASE_URL;?>assets/images/arrow.png" alt="Dropdown" width="20">
                         </div>
                         <div id="dropdown">
                             <a href="<?=BASE_URL;?>lista/nome">Listar Nomes</a> 
@@ -44,6 +46,24 @@
                         <a href="<?=BASE_URL;?>home/sair">Sair</a>
                     </li>
                 </ul> 
+                <ul class="menu-usuario">
+                    <li>
+                        <div class="usuario" id="menu-dropdown">
+                            <a href="<?=BASE_URL;?>usuario/my/<?=$viewData['usuarios']->info['id'];?>">
+                            <?=$viewData['usuarios']->info['nome'];?>
+                            </a>
+                        </div>
+                        
+                        <div id="dropdown">
+                            <a href="<?=BASE_URL;?>usuario/editar-senha/<?=$viewData['usuarios']->info['id'];?>">
+                                Mudar a senha
+                            </a>
+                            <a href="<?=BASE_URL;?>cadastro/usuario">Cadastrar Novo Usuário</a>
+                            <a href="<?=BASE_URL;?>lista/usuario">Listar Usuários</a>
+                        </div>
+                    </li>
+                </ul>
+                
             </div>
         </div>
         <div class="fundo-img" style="background-image:url('<?=BASE_URL;?>assets/images/fundo.jpg');">
@@ -51,6 +71,7 @@
                 <?=$this->render($viewName, $viewData);?>
             </div>
         </div>
+        
         
         
 

@@ -85,4 +85,15 @@ class DeletarController extends Controller {
         }
     }
 
+    public function usuario($id){
+        $usuarios = new Usuarios();
+        if($usuarios->idExistis($id) == true){
+            $usuarios->delete($id);
+            header("Location: ".BASE_URL."lista/usuario");
+        } else{
+            header("Location: ".BASE_URL."lista/usuario");
+        }
+
+    }
+
 }

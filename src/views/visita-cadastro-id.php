@@ -8,12 +8,11 @@
         </div>
         <?php endif;?>
         <div class="form-group">
+            <?php//Caso o id seja passado, ele preenche já no campo de Nome visitado;?>
+            
             <label for="">Nome Visitado*:</label>
             <select name="pessoa" id="" class="form-control">
-                <option value=""></option>
-                <?php foreach($pessoa->info as $pes):?>
-                    <option value="<?=$pes['id'];?>"><?=$pes['id']." - ".$pes['nome'];?></option>
-                <?php endforeach;?>
+            <option value="<?=$pessoa->info['id'];?>"><?=$pessoa->info['id'].' - '.$pessoa->info['nome'];?></option>
             </select>
             
             <label for="">Data visita*:</label>
@@ -50,6 +49,7 @@
                     <option value="<?=$f['id'];?>"><?=$f['finalidade'];?></option>
                 <?php endforeach;?>
             </select>
+            
             <label for="">Forma Pagamento:</label>
             <select name="pagamento" id="" class="form-control">
                 <option value=""></option>

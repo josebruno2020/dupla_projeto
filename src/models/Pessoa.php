@@ -15,7 +15,7 @@ class Pessoa extends Model {
     }
     
     public function getAll(){
-        $sql = $this->db->prepare("SELECT * FROM pessoa ORDER BY nome asc");
+        $sql = $this->db->prepare("SELECT * FROM pessoa");
         $sql->execute();
 
         if($sql->rowCount() > 0){
@@ -38,7 +38,7 @@ class Pessoa extends Model {
     }
 
     public function porFiltro($filtro){
-        $sql = $this->db->prepare("SELECT * FROM pessoa WHERE nome like :filter ORDER BY nome ASC");
+        $sql = $this->db->prepare("SELECT * FROM pessoa WHERE nome like :filter ORDER BY id ASC");
         $sql->bindValue(":filter", "%".$filtro."%");
         $sql->execute();
 
@@ -82,7 +82,7 @@ class Pessoa extends Model {
         return $this->info;
     }
 
-    public function cadastrar($nome, $nascimento, $id_endereco, $fone1, $fone2, $email, $id_profissao, $recpub, $recimgpel, $conviteev, $convitecos, $con){
+    public function cadastrar($nome, $nascimento, $id_endereco, $fone1, $fone2, $email, $id_profissao, $recpub, $recimgpel, $conviteev, $convitecos, $con, $visitado){
 
         $sql = $this->db->prepare("INSERT INTO pessoa SET 
         nome = :nome, 
@@ -96,7 +96,8 @@ class Pessoa extends Model {
         recimgpel = :recimgpel, 
         conviteev = :conviteev, 
         convitecos = :convitecos, 
-        con = :con");
+        con = :con,
+        visitado = :visitado");
 
         $sql->bindValue(":nome", $nome);
         $sql->bindValue(":nascimento", $nascimento);
@@ -110,6 +111,7 @@ class Pessoa extends Model {
         $sql->bindValue(":conviteev", $conviteev);
         $sql->bindValue(":convitecos", $convitecos);
         $sql->bindValue(":con", $con);
+        $sql->bindValue(":visitado", $visitado);
         $sql->execute();
 
         return $this->info = $this->db->lastInsertId();

@@ -49,6 +49,18 @@ class Parcela extends Model {
         $sql->execute();
     }
 
+    public function update($n_parcela, $id_visita, $valor, $vencimento, $id){
+        $sql = $this->db->prepare("UPDATE parcela SET n_parcela = :n_parcela, id_visita = :id_visita, valor = :valor, vencimento = :vencimento
+        WHERE id = :id");
+
+        $sql->bindValue(":n_parcela", $n_parcela);
+        $sql->bindValue(":id_visita", $id_visita);
+        $sql->bindValue(":valor", $valor);
+        $sql->bindValue(":vencimento", $vencimento);
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+    }
+
     public function marcarPagamento($pagamento, $id){
         $sql = $this->db->prepare("UPDATE parcela SET pagamento = :pagamento WHERE id = :id");
         $sql->bindValue(":pagamento", $pagamento);
@@ -56,12 +68,22 @@ class Parcela extends Model {
         $sql->execute();
     }
 
+    //Função que vai deletar a parcela quando for indicado uma valor menor que o numero atual de parcelas na visita; Sempre delatando o numero de maior valor para a vista indicada. Nescessário o id da visita e o numero da parcela que será deletado;
+    public function deletarNParcela($id_visita, $n_parcela){
+        $sql = $this->db->prepare("DELETE FROM parcela WHERE id_visita = :id_visita AND n_parcela = :n_parcela");
+        $sql->bindValue(":id_visita", $id_visita);
+        $sql->bindValue(":n_parcela", $n_parcela);
+        $sql->execute();
+    }
+
+    //Função para deletar todas as parcelas de uma visita;
     public function deletarIdVisita($id){
         $sql = $this->db->prepare("DELETE FROM parcela WHERE id_visita = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();
     }
 
+    //Função para deletar um registro de parcela;
     public function deletar($id){
         $sql = $this->db->prepare("DELETE FROM parcela WHERE id = :id");
         $sql->bindValue(":id", $id);

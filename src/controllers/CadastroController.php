@@ -14,7 +14,8 @@ class CadastroController extends Controller {
             $flash = $_SESSION['flash'];
             $_SESSION['flash'] = '';
         }
-
+        $usuarios = new Usuarios();
+        $usuarios->getOne($_SESSION['lgusuario']);
         $profissao = new Profissao();
         $profissao->getAll();
         $consagracao = new Consagracao();
@@ -22,7 +23,8 @@ class CadastroController extends Controller {
         $this->loadTemplate('nome-cadastro', [
             'profissao' => $profissao,
             'consagracao' => $consagracao,
-            'flash' => $flash
+            'flash' => $flash,
+            'usuarios' => $usuarios
         ]);
     }
 
@@ -30,6 +32,7 @@ class CadastroController extends Controller {
         //Instanciando os objetos;
         $pessoa = new Pessoa();
         $endereco = new Endereco();
+        $regiao = new Regiao();
         $pessoa_consagracao = new Pessoa_consagracao();
         //Recebendo os dados do nome;
         $nome = filter_input(INPUT_POST, 'nome');
@@ -43,6 +46,7 @@ class CadastroController extends Controller {
         $conviteev = filter_input(INPUT_POST, 'conviteev');
         $convitecos = filter_input(INPUT_POST, 'convitecos');
         $con = filter_input(INPUT_POST, 'consagracao');
+        $visitado = null;
 
         //Recebendo os dados do endereco (tabelas diferentes);
         $cep = filter_input(INPUT_POST, 'cep');
@@ -59,24 +63,25 @@ class CadastroController extends Controller {
         $renovacao = filter_input(INPUT_POST, 'renovou');
         //Se os dados principais foram recebidos, primeiro temos que cadastrar o endereço;
         if($nome && $cep && $num){
-            if($endereco->mesmoEndereco($cep, $num)==false){
-                $id_endereco = $endereco->cadastrar($cep, $rua, $num, $bairro, $cidade, $uf);
-
-                //Quando cadastra o endereco, retorna o id, onde vai ser acrescentado na tabela de pessoa;
-                $id_pessoa = $pessoa->cadastrar($nome, $nascimento, $id_endereco, $fone1, $fone2, $email, $id_profissao, $recpub, $recimgpel, $conviteev, $convitecos, $con);
-                
-                //Se recevbeu algum dado de consagracao, cadastra;
-                if(isset($id_curso)){
-                    $pessoa_consagracao->cadastrar($id_pessoa, $id_curso, $renovacao, $concluido);
-                }
-
-                $_SESSION['flash'] = 'Nome cadastrado com sucesso!';
-                header("Location: ".BASE_URL."cadastro/nome");
+            //Verificar se há algum registo na tabela de regiao com o bairro informado;
+            if($regiao->getRegiao($bairro) == true){
+                $id_regiao = $regiao->info['id'];
             } else{
-                $_SESSION['flash'] = 'Já existe um nome para nesse endereço! Nome não cadastrado!';
-                header("Location: ".BASE_URL."cadastro/nome");
+                $id_regiao = null;
             }
-            
+            /*
+            * ATENÇÃO! Aqui ficava uma verificação para o mesmo endereço, mas tiramos. Caso seja preciso colocar novamente, era aqui que ficava;
+            */
+            $id_endereco = $endereco->cadastrar($cep, $rua, $num, $bairro, $cidade, $uf, $id_regiao);
+            //Quando cadastra o endereco, retorna o id, onde vai ser acrescentado na tabela de pessoa;
+            $id_pessoa = $pessoa->cadastrar($nome, $nascimento, $id_endereco, $fone1, $fone2, $email, $id_profissao, $recpub, $recimgpel, $conviteev, $convitecos, $con, $visitado);
+            //Se recevbeu algum dado de consagracao, cadastra;
+            if(isset($id_curso)){
+                $pessoa_consagracao->cadastrar($id_pessoa, $id_curso, $renovacao, $concluido);
+            }
+
+            $_SESSION['flash'] = 'Nome cadastrado com sucesso!';
+            header("Location: ".BASE_URL."cadastro/nome");
 
         } else{
             $_SESSION['flash'] = 'Insira os dados obrigatórios!';
@@ -97,10 +102,14 @@ class CadastroController extends Controller {
         $fd->getAll();
         $soldalicio = new Soldalicio();
         $soldalicio->getAll();
-        //Caso receba algum id;
+        $usuarios = new Usuarios();
+        $usuarios->getOne($_SESSION['lgusuario']);
+        $view = 'visita-cadastro';
+        //Caso receba algum id, ai vamos mandar para outro view personalizado;
         if(!empty($id)){
             if($pessoa->idExistis($id) == true){
                 $pessoa->getOne($id);
+                $view = 'visita-cadastro-id';
             } else{
                 header("Location: ".BASE_URL."cadastro/visita");
             }
@@ -112,13 +121,14 @@ class CadastroController extends Controller {
             $flash = $_SESSION['flash'];
             $_SESSION['flash'] = '';
         }
-        $this->loadTemplate('visita-cadastro', [
+        $this->loadTemplate($view, [
             'pessoa' => $pessoa,
             'dupla' => $dupla, 
             'fd' => $fd,
             'fp' => $fp,
             'soldalicio' => $soldalicio,
-            'flash' => $flash
+            'flash' => $flash,
+            'usuarios' => $usuarios
         ]);
     }
 
@@ -183,6 +193,8 @@ class CadastroController extends Controller {
     public function curso(){
         $soldalicio = new Soldalicio();
         $soldalicio->getAll();
+        $usuarios = new Usuarios();
+        $usuarios->getOne($_SESSION['lgusuario']);
 
         $flash = '';
         if(isset($_SESSION['flash'])) {
@@ -192,7 +204,8 @@ class CadastroController extends Controller {
 
         $this->loadTemplate('curso-cadastro', [
             'soldalicio' => $soldalicio,
-            'flash' => $flash
+            'flash' => $flash,
+            'usuarios' => $usuarios
         ]);
     }
 
@@ -227,12 +240,17 @@ class CadastroController extends Controller {
     }
 
     public function dupla(){
+        $usuarios = new Usuarios();
+        $usuarios->getOne($_SESSION['lgusuario']);
         $flash = '';
         if(isset($_SESSION['flash'])) {
             $flash = $_SESSION['flash'];
             $_SESSION['flash'] = '';
         }
-        $this->loadTemplate('dupla-cadastro', ['flash' => $flash]);
+        $this->loadTemplate('dupla-cadastro', [
+            'flash' => $flash,
+            'usuarios' => $usuarios
+        ]);
     }
 
     public function duplaAction(){
@@ -261,12 +279,17 @@ class CadastroController extends Controller {
     }
 
     public function soldalicio(){
+        $usuarios = new Usuarios();
+        $usuarios->getOne($_SESSION['lgusuario']);
         $flash = '';
         if(isset($_SESSION['flash'])) {
             $flash = $_SESSION['flash'];
             $_SESSION['flash'] = '';
         }
-        $this->loadTemplate('soldalicio-cadastro', ['flash' => $flash]);
+        $this->loadTemplate('soldalicio-cadastro', [
+            'flash' => $flash,
+            'usuarios' => $usuarios
+        ]);
     }
 
     public function soldalicioAction(){
@@ -281,6 +304,47 @@ class CadastroController extends Controller {
         } else{
             $_SESSION['flash'] = 'Preencha todos os campos!';
             header("Location: ".BASE_URL."cadastro/soldalicio");
+        }
+    }
+
+    public function usuario(){
+        $usuarios = new Usuarios();
+        $usuarios->getOne($_SESSION['lgusuario']);
+        $flash = '';
+        if(isset($_SESSION['flash'])) {
+            $flash = $_SESSION['flash'];
+            $_SESSION['flash'] = '';
+        }
+        
+        $this->loadTemplate('usuario-novo', [
+            'flash' => $flash,
+            'usuarios' => $usuarios
+        ]);
+    }
+
+    public function usuarioAction(){
+        $usuarios = new Usuarios();
+        //Recebendo os dados;
+        $nome = filter_input(INPUT_POST, 'nome');
+        $email = filter_input(INPUT_POST, 'email');
+        $nascimento = filter_input(INPUT_POST, 'nascimento');
+        $pass1 = filter_input(INPUT_POST, 'password1');
+        $pass2 = filter_input(INPUT_POST, 'password2');
+        $grupo = filter_input(INPUT_POST, 'grupo');
+        //Verificando se as duas senhas são iguais;
+        if($pass1 === $pass2){
+            if($usuarios->emailExistis($email) == false){
+                $usuarios->cadastrar($nome, $email, $nascimento, $pass1, $grupo);
+                $_SESSION['flash'] = 'Usuário cadastrado com sucesso!';
+                header("Location: ".BASE_URL."cadastro/usuario"); 
+            } else{
+                $_SESSION['flash'] = 'E-mail já cadastrado no sistema!';
+                header("Location: ".BASE_URL."cadastro/usuario");
+            }
+            
+        } else{
+            $_SESSION['flash'] = 'As duas senhas devem ser iguais!';
+            header("Location: ".BASE_URL."cadastro/usuario");
         }
     }
 }

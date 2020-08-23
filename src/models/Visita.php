@@ -125,6 +125,35 @@ class Visita extends Model {
             return false;
         }
     }
+    public function update($id_pessoa, $id_dupla, $id_forma_pagamento, $id_finalidade, $id_soldalicio, $resultado, $data, $n_parcela, $valor, $inicio, $termino, $id){
+
+        $sql = $this->db->prepare("UPDATE visita SET id_pessoa = :id_pessoa,
+         id_dupla = :id_dupla, 
+         id_forma_pagamento = :id_forma_pagamento, 
+         id_finalidade = :id_finalidade, 
+         id_soldalicio = :id_soldalicio, 
+         resultado = :resultado, 
+         data = :data, 
+         n_parcela = :n_parcela, 
+         valor = :valor, 
+         inicio = :inicio, 
+         termino = :termino WHERE id = :id");
+
+        $sql->bindValue(":id_pessoa", $id_pessoa);
+        $sql->bindValue(":id_dupla", $id_dupla);
+        $sql->bindValue(":id_forma_pagamento", $id_forma_pagamento);
+        $sql->bindValue(":id_finalidade", $id_finalidade);
+        $sql->bindValue(":id_soldalicio", $id_soldalicio);
+        $sql->bindValue(":resultado", $resultado);
+        $sql->bindValue(":data", $data);
+        $sql->bindValue(":n_parcela", $n_parcela);
+        $sql->bindValue(":valor", $valor);
+        $sql->bindValue(":inicio", $inicio);
+        $sql->bindValue(":termino", $termino);
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+    }
+
     public function updateN_parcela($n_parcela, $id){
         $sql = $this->db->prepare("UPDATE visita SET n_parcela = :n_parcela WHERE id = :id");
         $sql->bindValue(":n_parcela", $n_parcela);

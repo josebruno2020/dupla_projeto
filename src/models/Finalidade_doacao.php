@@ -13,5 +13,18 @@ class Finalidade_doacao extends Model {
             return false;
         }
     }
+
+    public function getOne($id){
+        $sql = $this->db->prepare("SELECT * FROM finalidade_doacao WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            return $this->info = $sql->fetch();
+            
+        } else{
+            return false;
+        }
+    }
     
 }

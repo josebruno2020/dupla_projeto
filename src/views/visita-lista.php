@@ -16,7 +16,7 @@
                 <th>Resultado</th>
                 <th>Parcelas</th>
                 <th>Valor</th>
-                <th>Deletar</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <?php $visita->getAll();?>
@@ -44,8 +44,11 @@
                     </a>
                     <?php endif;?>
                 </td>
-                <td><?=number_format($vis['valor'], 2, ',', ' ');?></td>
+                <td><?=number_format($vis['valor'], 2, ',', '.');?></td>
                 <td>
+                    <a href="<?=BASE_URL;?>lista/visita/<?=$vis['id'];?>" >
+                        <img src="<?=BASE_URL;?>assets/images/edit.png" alt="Editar" width="30" title="Editar">
+                    </a>
                     <a onclick="return confirm('Tem certeza que deseja deletar a visita com TODOS os REGISTROS!?');" href="<?=BASE_URL;?>deletar/visita/<?=$vis['id'];?>">
                         <img src="<?=BASE_URL;?>assets/images/deletar.png" alt="" width="30">
                     </a>

@@ -12,6 +12,7 @@
             <th>CEP</th>
             <th>Cidade</th>
             <th>Bairro</th>
+            <th>Região</th>
             <th>Rua</th>
             <th>Número</th>
         </tr>
@@ -25,6 +26,7 @@
     <tbody>
         <?php $endereco->getOne($pes['id_endereco']);?>
         <?php $profissao->getOne($pes['id_profissao']);?>
+        <?php $regiao->getOne($endereco->info['id_regiao']);?>
         <tr>
             <td><?=$pes['id'];?></td>
             <td><?=$pes['nome'];?></td>
@@ -37,6 +39,7 @@
             <td><?=$endereco->info['cep'];?></td>
             <td><?=$endereco->info['cidade'];?></td>
             <td><?=$endereco->info['bairro'];?></td>
+            <td><?=$regiao->info['zona'];?></td>
             <td><?=$endereco->info['rua'];?></td>
             <td><?=$endereco->info['num'];?></td>
         </tr>
@@ -48,7 +51,7 @@
             <th colspan=2>Resultado</th>
             <th colspan=2>Valor</th>
             <th>Número de Parcelas</th>
-            <th colspan=3>Total</th>
+            <th colspan=4>Total</th>
         </tr>
         
         <?php foreach($visita->info as $vis):?>
@@ -61,7 +64,7 @@
             </td>
             <td colspan=2> <?=number_format($vis['valor'], 2, ',', '.') ;?></td>
             <td><?=$vis['n_parcela'];?></td>
-            <td colspan=3>
+            <td colspan=4>
                 <?=number_format(
                     intval($vis['n_parcela']) * intval($vis['valor']), 
                     2, ',', '.');?>

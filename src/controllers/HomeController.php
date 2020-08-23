@@ -9,6 +9,8 @@ class HomeController extends Controller {
     }
 
     public function index(){
+        $usuarios = new Usuarios();
+        $usuarios->getOne($_SESSION['lgusuario']);
         $pessoa = new Pessoa();
         $pessoa->getAll();
         $visita = new Visita();
@@ -26,7 +28,8 @@ class HomeController extends Controller {
         $this->loadTemplate('home', [
             'pessoa' => $pessoa,
             'visita' => $visita,
-            'total' => $total
+            'total' => $total,
+            'usuarios' => $usuarios
         ]);
     }
 

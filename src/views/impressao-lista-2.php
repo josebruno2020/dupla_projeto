@@ -12,6 +12,7 @@
             <th>CEP</th>
             <th>Cidade</th>
             <th>Bairro</th>
+            <th>Região</th>
             <th>Rua</th>
             <th>Número</th>
         </tr>
@@ -25,6 +26,7 @@
     <tbody>
         <?php $endereco->getOne($pes['id_endereco']);?>
         <?php $profissao->getOne($pes['id_profissao']);?>
+        <?php $regiao->getOne($endereco->info['id_regiao']);?>
         <tr>
             <td><?=$pes['id'];?></td>
             <td><?=$pes['nome'];?></td>
@@ -37,6 +39,7 @@
             <td><?=$endereco->info['cep'];?></td>
             <td><?=$endereco->info['cidade'];?></td>
             <td><?=$endereco->info['bairro'];?></td>
+            <td><?=$regiao->info['zona'];?></td>
             <td><?=$endereco->info['rua'];?></td>
             <td><?=$endereco->info['num'];?></td>
         </tr>
