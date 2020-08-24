@@ -31,12 +31,15 @@
                     <td><?=$pes['fone1'];?></td>
                     <td><?=$pes['fone2'];?></td>
                     <td>
+                        <a href="<?=BASE_URL;?>cadastro/visita/<?=$pes['id'];?>">
+                            <img src="<?=BASE_URL;?>assets/images/house.png" alt="Cadastrar Visita" width="30" title="Cadastrar Visita">
+                        </a>
                         <a href="<?=BASE_URL;?>lista/nome/<?=$pes['id'];?>" >
-                            <img src="<?=BASE_URL;?>assets/images/edit.png" alt="Editar" width="30" title="Editar">
+                            <img src="<?=BASE_URL;?>assets/images/edit.png" alt="Editar" width="30" title="Editar Nome">
                         </a>
 
                         <a onclick="return confirm('Tem certeza que deseja deletar o nome com TODOS os REGISTROS!?');" href="<?=BASE_URL;?>deletar/nome/<?=$pes['id'];?>">
-                            <img src="<?=BASE_URL;?>assets/images/deletar.png" alt="Excluir" width="30" title="Excluir">
+                            <img src="<?=BASE_URL;?>assets/images/deletar.png" alt="Excluir" width="30" title="Excluir Nome">
                         </a>
                     </td>
                 </tr>

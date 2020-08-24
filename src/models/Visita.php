@@ -79,6 +79,22 @@ class Visita extends Model {
             return false;
         }
     }
+    //Função que retorna toda a tabela de visitas, dependendo do filrto de nome da tabela de pessoa e quando o id_pessoa da tabela de visitas bate com o id da pessoa;
+    public function porFiltro($filtro){
+
+        $sql = $this->db->prepare("SELECT * FROM visita, pessoa 
+        WHERE visita.id_pessoa = pessoa.id 
+        AND pessoa.nome LIKE :filtro");
+
+        $sql->bindValue(":filtro", "%".$filtro."%");
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            return $this->info = $sql->fetchAll();
+        } else{
+            return false;
+        }
+    }
     public function getTotalPagina($page, $perPage){
         $offset = ($page - 1) * $perPage;
 

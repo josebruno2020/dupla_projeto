@@ -33,4 +33,22 @@ class AjaxController extends Controller {
             'pessoa' => $pessoa
         ]);
     }
+
+    public function lista_filtrar_visita(){
+        if(isset($_POST['lista_nome_visita'])){
+            $filtro = $_POST['lista_nome_visita'];
+        } else{
+            $filtro = '';
+        }
+        $visita = new Visita();
+        $visita->porFiltro($filtro);
+        $pessoa = new Pessoa();
+        $dupla = new Dupla();
+       
+        $this->render('visita-filtro', [
+            'pessoa' => $pessoa,
+            'dupla' => $dupla,
+            'visita' => $visita
+        ]);
+    }
 }

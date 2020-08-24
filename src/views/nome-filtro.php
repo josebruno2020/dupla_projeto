@@ -24,6 +24,10 @@
                 <td><?=$pes['fone1'];?></td>
                 <td><?=$pes['fone2'];?></td>
                 <td>
+                    <a href="<?=BASE_URL;?>cadastro/visita/<?=$pes['id'];?>">
+                        <img src="<?=BASE_URL;?>assets/images/house.png" alt="Cadastrar Visita" width="30" title="Cadastrar Visita">
+                    </a>
+                    
                     <a href="<?=BASE_URL;?>lista/nome/<?=$pes['id'];?>" >
                         <img src="<?=BASE_URL;?>assets/images/edit.png" alt="Editar" width="30" title="Editar">
                     </a>

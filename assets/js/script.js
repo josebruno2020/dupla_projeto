@@ -79,6 +79,10 @@ $(document).ready(function(){
 
         } 
     });
+    /*
+    * Função com AJAX para buscar nome das pessoas na pagina de lista de nomes;
+    * Author: José Bruno;
+    */
     $('#lista_nome').bind('keyup', function(){
         $('#form_lista').submit(function(e){
             
@@ -102,10 +106,37 @@ $(document).ready(function(){
     
     });
 
-});
-//Requisição AJAX para filtrar nome;
+    /*
+    * Função com requisição AJAX para buscar o nome das pessoas na pagina de listagem de visitas;
+    */
+    $('#lista_visita').bind('keyup', function(){
+        $('#form_lista_visita').submit(function(e){
 
-//Requisição para marcar pagamento -> pagina de parcela;
+            var txt = $(this).serialize();
+            e.preventDefault();
+
+            $.ajax({
+                url:'/dupla_projeto/ajax/lista_filtrar_visita',
+                type:'post',
+                data:txt,
+                success:function(data){
+                    $('#resultado_visita').empty().html(data);
+                    console.log(txt);
+                }
+            });
+            return false;
+
+        });
+        $('#form_lista_visita').trigger('submit');
+    });
+    
+
+});
+
+
+/*
+* Requisição para marcar pagamento -> pagina de parcela;
+*/
 $('.marcar_pagamento').click(function(){
     //Recolhendo o id do pagamento;
     var id = $(this).attr('data-id');
@@ -119,11 +150,13 @@ $('.marcar_pagamento').click(function(){
 });
 
 
-//Requisição para desmarcar pagamento;
+/*
+* Requisição para desmarcar pagamento;
+*/
 $('.desmarcar_pagamento').click(function(){
+
     var id = $(this).attr('data-id');
     
-
     $.ajax ({
         url:'/dupla_projeto/ajax/desmarcar_pagamento/'+id,
         type:'get'

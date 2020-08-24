@@ -285,10 +285,14 @@ class ListaController extends Controller {
 
     //O id que recebe é o da visita, pois toda parcela está relacionada a uma visita em específico;
     public function parcela($id){
+        $visita = new Visita();
+        //Verificar se o id passado na URL existe; Se nao existe, ja redireciona para a listagem de visitas;
+        if($visita->idExistis($id) == false){
+            header("Location: ".BASE_URL."lista/visita");
+        }
         $usuarios = new Usuarios();
         $usuarios->getOne($_SESSION['lgusuario']);
         $pessoa = new Pessoa();
-        $visita = new Visita();
         $pg = new Forma_pagamento();
         $visita->getOne($id);
         $pessoa->getOne($visita->info['id_pessoa']);
