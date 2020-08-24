@@ -33,19 +33,32 @@ class CadastroController extends Controller {
         $pessoa = new Pessoa();
         $endereco = new Endereco();
         $regiao = new Regiao();
+        $profissao = new Profissao();
+        //Calculando o numero de registros na tabela de profissoes para segunrança do select;
+        $profissao->getAll();
+        $total_profissao = count($profissao->info);
+        echo $total_profissao;exit;
         $pessoa_consagracao = new Pessoa_consagracao();
         //Recebendo os dados do nome;
-        $nome = filter_input(INPUT_POST, 'nome');
+        $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
         $nascimento = filter_input(INPUT_POST, 'nascimento');
         $fone1 = filter_input(INPUT_POST, 'fone1');
         $fone2 = filter_input(INPUT_POST, 'fone2');
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-        $id_profissao = filter_input(INPUT_POST, 'profissao');
+        //Recebendo o id da profissão com os filtros de validação de segunraça;
+        $id_profissao = filter_input(INPUT_POST, 'profissao', array(
+            'options' => array(
+                'min_range' => 7,
+                'max_range' => $total_profissao,
+                'default' => 264 //OUTROS
+            )
+        ));
         $recpub = filter_input(INPUT_POST, 'recpub');
         $recimgpel = filter_input(INPUT_POST, 'recimgpel');
         $conviteev = filter_input(INPUT_POST, 'conviteev');
         $convitecos = filter_input(INPUT_POST, 'convitecos');
         $con = filter_input(INPUT_POST, 'consagracao');
+        //Defenimos como null, porque quando o usuario eh cadastrado, ele ainda nao foi visitado por padrão;
         $visitado = null;
 
         //Recebendo os dados do endereco (tabelas diferentes);
@@ -58,7 +71,7 @@ class CadastroController extends Controller {
         $uf = filter_input(INPUT_POST, 'uf');
 
         //Dados de consagracao;
-        $id_curso = filter_input(INPUT_POST, 'turma');
+        $id_curso = filter_input(INPUT_POST, 'turma', FILTER_VALIDATE_INT);
         $concluido = filter_input(INPUT_POST, 'concluiu');
         $renovacao = filter_input(INPUT_POST, 'renovou');
         //Se os dados principais foram recebidos, primeiro temos que cadastrar o endereço;
@@ -146,7 +159,7 @@ class CadastroController extends Controller {
         if($resultado == '1'){
             $id_finalidade = filter_input(INPUT_POST, 'finalidade');
             $id_forma_pagamento = filter_input(INPUT_POST, 'pagamento');
-            $valor = filter_input(INPUT_POST, 'valor');
+            $valor = filter_input(INPUT_POST, 'valor', FILTER_VALIDATE_FLOAT);
             $valor = str_replace(',', '.', $valor);
             $n_parcela = intval(filter_input(INPUT_POST, 'parcela'));
             $inicio = filter_input(INPUT_POST, 'inicio');
@@ -256,8 +269,8 @@ class CadastroController extends Controller {
     public function duplaAction(){
         $dupla = new Dupla();
         //Recebendo os dados;
-        $nome1 = filter_input(INPUT_POST, 'nome1');
-        $nome2 = filter_input(INPUT_POST, 'nome2');
+        $nome1 = filter_input(INPUT_POST, 'nome1', FILTER_SANITIZE_STRING);
+        $nome2 = filter_input(INPUT_POST, 'nome2', FILTER_SANITIZE_STRING);
 
         if($nome1 && $nome2){
             //Verificar se já existe uma dupla com esses nomes;
@@ -295,7 +308,7 @@ class CadastroController extends Controller {
     public function soldalicioAction(){
         $soldalicio = new Soldalicio();
         //Recebendo os dados;
-        $nome = filter_input(INPUT_POST, 'nome');
+        $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
         if($nome){ 
             $soldalicio->cadastrar($nome);
             $_SESSION['flash'] = 'Soldalício cadastrado com sucesso!';
