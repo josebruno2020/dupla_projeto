@@ -10,7 +10,7 @@
                     <th>Retaguarda</th>                 
                 </tr>
             </thead>
-            <?php if($dupla->info == null):?>
+            <?php if(is_null($dupla)):?>
                 <div class="alert alert-info">
                     Nenhum registro encontado!
                 </div>

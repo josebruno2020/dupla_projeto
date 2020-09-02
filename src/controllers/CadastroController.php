@@ -1,4 +1,4 @@
-<?php 
+<?php
 class CadastroController extends Controller {
     
     public function __construct() {
@@ -37,7 +37,6 @@ class CadastroController extends Controller {
         //Calculando o numero de registros na tabela de profissoes para segunrança do select;
         $profissao->getAll();
         $total_profissao = count($profissao->info);
-        echo $total_profissao;exit;
         $pessoa_consagracao = new Pessoa_consagracao();
         //Recebendo os dados do nome;
         $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);

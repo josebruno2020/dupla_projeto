@@ -2,13 +2,14 @@
 class Dupla extends Model {
     public $info;
     
-    public function getAll(){
+    public function getAll()
+    {
         $sql = $this->db->prepare("SELECT * FROM dupla ORDER BY nome1 asc");
         $sql->execute();
 
         if($sql->rowCount() > 0){
-            $this->info = $sql->fetchAll();
-            
+            return $this->info = $sql->fetchAll();
+                        
         } else{
             return false;
         }

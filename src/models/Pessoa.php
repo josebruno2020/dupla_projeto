@@ -2,7 +2,8 @@
 class Pessoa extends Model {
     public $info;
 
-    public function idExistis($id){
+    public function idExistis($id)
+    {
         $sql = $this->db->prepare("SELECT * FROM pessoa WHERE id = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();
@@ -14,7 +15,8 @@ class Pessoa extends Model {
         }
     }
     
-    public function getAll(){
+    public function getAll()
+    {
         $sql = $this->db->prepare("SELECT * FROM pessoa");
         $sql->execute();
 
@@ -25,7 +27,8 @@ class Pessoa extends Model {
         }
     }
 
-    public function getOne($id){
+    public function getOne($id)
+    {
         $sql = $this->db->prepare("SELECT * FROM pessoa WHERE id = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();
@@ -37,7 +40,8 @@ class Pessoa extends Model {
         }
     }
 
-    public function porFiltro($filtro){
+    public function porFiltro($filtro)
+    {
         $sql = $this->db->prepare("SELECT * FROM pessoa WHERE nome like :filter ORDER BY id ASC");
         $sql->bindValue(":filter", "%".$filtro."%");
         $sql->execute();
@@ -49,7 +53,8 @@ class Pessoa extends Model {
         }
     }
 
-    public function getBusca($busca){
+    public function getBusca($busca)
+    {
         $sql = $this->db->prepare("SELECT :busca FROM pessoa");
         $sql->bindValue(":busca", implode(',', $busca));
         $sql->execute();
@@ -58,7 +63,8 @@ class Pessoa extends Model {
         } 
     }
 
-    public function getVisitados($visitado){
+    public function getVisitados($visitado
+    ){
         $sql = $this->db->prepare("SELECT * FROM pessoa WHERE visitado = :visitado");
         $sql->bindValue(":visitado", $visitado);
         $sql->execute();
@@ -68,7 +74,8 @@ class Pessoa extends Model {
         }
     }
 
-    public function getTotalPagina($page, $perPage){
+    public function getTotalPagina($page, $perPage)
+    {
         $offset = ($page - 1) * $perPage;
 
         $sql = $this->db->prepare("SELECT * FROM pessoa ORDER BY nome ASC LIMIT $offset, $perPage");
@@ -82,7 +89,8 @@ class Pessoa extends Model {
         return $this->info;
     }
 
-    public function cadastrar($nome, $nascimento, $id_endereco, $fone1, $fone2, $email, $id_profissao, $recpub, $recimgpel, $conviteev, $convitecos, $con, $visitado){
+    public function cadastrar($nome, $nascimento, $id_endereco, $fone1, $fone2, $email, $id_profissao, $recpub, $recimgpel, $conviteev, $convitecos, $con, $visitado) :int
+    {
 
         $sql = $this->db->prepare("INSERT INTO pessoa SET 
         nome = :nome, 
@@ -117,7 +125,8 @@ class Pessoa extends Model {
         return $this->info = $this->db->lastInsertId();
     }
 
-    public function atualizar($id, $nome, $nascimento, $fone1, $fone2, $email, $id_profissao, $recpub, $recimgpel, $conviteev, $convitecos, $con){
+    public function atualizar($id, $nome, $nascimento, $fone1, $fone2, $email, $id_profissao, $recpub, $recimgpel, $conviteev, $convitecos, $con) :void
+    {
 
         $sql = $this->db->prepare("UPDATE pessoa SET 
         nome = :nome, 
@@ -147,14 +156,16 @@ class Pessoa extends Model {
         $sql->execute();
     }
 
-    public function marcarVisita($id, $visitado){
+    public function marcarVisita($id, $visitado) :void
+    {
         $sql = $this->db->prepare("UPDATE pessoa SET visitado = :visitado WHERE id = :id");
         $sql->bindValue(":visitado", $visitado);
         $sql->bindValue(":id", $id);
         $sql->execute();
     }
 
-    public function deletar($id){
+    public function deletar($id) : void
+    {
         $sql = $this->db->prepare("DELETE FROM pessoa WHERE id = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();

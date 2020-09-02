@@ -1,4 +1,4 @@
-<?php 
+<?php
 class UsuarioController extends Controller {
     
     public function __construct() {

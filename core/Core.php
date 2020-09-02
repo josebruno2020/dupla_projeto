@@ -51,9 +51,8 @@ class Core {
 
         //Função auxiliar para executar uma função que não sabemos qual é... passamos o parâmetro da função como segundo parâmetro dela;
         call_user_func_array(array($c, $currentAction), $params);
-
+    
     }
-
     public function checkRoutes($url) {
         global $routes;
 

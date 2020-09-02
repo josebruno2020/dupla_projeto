@@ -1,4 +1,4 @@
-<?php 
+<?php
 class HomeController extends Controller {
     
     public function __construct() {
@@ -7,6 +7,7 @@ class HomeController extends Controller {
             header("Location: ".BASE_URL."login");
         }
     }
+    
 
     public function index(){
         $usuarios = new Usuarios();
@@ -35,7 +36,9 @@ class HomeController extends Controller {
 
 
     public function sair(){
-        unset($_SESSION['lgusuario']);
+        session_destroy();
         header("Location: ".BASE_URL);
     }
+
+    
 }

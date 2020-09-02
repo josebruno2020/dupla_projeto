@@ -1,4 +1,4 @@
-<?php 
+<?php
 class DeletarController extends Controller {
     
     public function __construct() {

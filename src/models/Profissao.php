@@ -1,4 +1,5 @@
 <?php
+
 class Profissao extends Model {
     public $info;
     

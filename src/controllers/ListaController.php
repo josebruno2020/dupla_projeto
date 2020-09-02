@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ListaController extends Controller {
     
     public function __construct() {

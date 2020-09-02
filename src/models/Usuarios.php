@@ -2,7 +2,8 @@
 class Usuarios extends Model {
     public $info;
 
-    public function isLogged() {
+    public function isLogged() : bool
+    {
         if(empty($_SESSION['lgusuario'])) {
             return false;
         } else {
@@ -10,7 +11,8 @@ class Usuarios extends Model {
         }
     }
 
-    public function fazerLogin($email, $senha){
+    public function fazerLogin($email, $senha): bool
+    {
         $sql = $this->db->prepare("SELECT * FROM usuarios WHERE email = :email AND senha = :senha");
         $sql->bindValue(":email", $email);
         $sql->bindValue(":senha", md5($senha));
@@ -25,7 +27,8 @@ class Usuarios extends Model {
         }
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         $sql = $this->db->prepare("SELECT * FROM usuarios  ORDER BY nome DESC");
         $sql->execute();
 
@@ -34,7 +37,8 @@ class Usuarios extends Model {
         }
     }
 
-    public function idExistis($id){
+    public function idExistis($id): bool
+    {
         $sql = $this->db->prepare("SELECT * FROM usuarios WHERE id = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();
@@ -46,7 +50,8 @@ class Usuarios extends Model {
         }
     }
 
-    public function emailExistis($email){
+    public function emailExistis($email): bool
+    {
         $sql = $this->db->prepare("SELECT * FROM usuarios WHERE email = :email");
         $sql->bindValue(":email", $email);
         $sql->execute();
@@ -58,7 +63,8 @@ class Usuarios extends Model {
         }
     }
 
-    public function getOne($id){
+    public function getOne($id)
+    {
         $sql = $this->db->prepare("SELECT * FROM usuarios WHERE id = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();
@@ -70,7 +76,8 @@ class Usuarios extends Model {
         }
     }
 
-    public function cadastrar($nome, $email, $nascimento, $senha, $grupo){
+    public function cadastrar($nome, $email, $nascimento, $senha, $grupo): void
+    {
         $sql = $this->db->prepare("INSERT INTO usuarios SET nome = :nome, email = :email, nascimento = :nascimento, senha = :senha, grupo = :grupo");
         $sql->bindValue(":nome", $nome);
         $sql->bindValue(":email", $email);
@@ -80,7 +87,8 @@ class Usuarios extends Model {
         $sql->execute();
     }
 
-    public function editar($id, $nome, $email, $nascimento){
+    public function editar($id, $nome, $email, $nascimento): void
+    {
         $sql = $this->db->prepare("UPDATE usuarios SET nome = :nome, email = :email, nascimento = :nascimento WHERE id = :id");
         $sql->bindValue(":nome", $nome);
         $sql->bindValue(":email", $email);
@@ -89,14 +97,16 @@ class Usuarios extends Model {
         $sql->execute();
     }
 
-    public function updatePassword($pass1, $id){
+    public function updatePassword($pass1, $id): void
+    {
         $sql = $this->db->prepare("UPDATE usuarios SET senha = :senha WHERE id = :id");
         $sql->bindValue(":senha", md5($pass1));
         $sql->bindValue(":id", $id);
         $sql->execute();
     }
 
-    public function delete($id){
+    public function delete($id): void
+    {
         $sql = $this->db->prepare("DELETE FROM usuarios WHERE id = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();

@@ -1,5 +1,5 @@
 <?php
-require 'environment.php';
+require __DIR__.'/environment.php';
 
 $config = array();
 
@@ -8,7 +8,7 @@ if(ENVIRONMENT == 'development') {
     $config['dbname'] = 'dupla_projeto';
     $config['host'] = 'localhost';
     $config['dbuser'] = 'root';
-    $config['dbpass'] = '';
+    $config['dbpass'] = 'root';
 } else {
     define("BASE_URL", "https://".$_SERVER['SERVER_NAME']."/");
     $config['dbname'] = 'dupla_projeto';
@@ -16,7 +16,6 @@ if(ENVIRONMENT == 'development') {
     $config['dbuser'] = 'root';
     $config['dbpass'] = '';
 }
-
 global $db;
 try {
 
@@ -26,3 +25,4 @@ try {
     echo "ERRO: ".$e->getMessage();
     exit;
 }
+

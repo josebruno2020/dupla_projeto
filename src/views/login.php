@@ -19,9 +19,11 @@
                 <br>
 
                 <div class="form-group">
-                    <?php if(!empty($flash)):?>
-                        <div class="alert alert-danger"><?=$flash;?></div>
+                    <?php if(isset($_SESSION['flash'])):?>
+                        <div class="alert alert-<?=$_SESSION['tipo'];?>"><?=$_SESSION['flash'];?></div>
                     <?php endif;?>
+                    <?php unset($_SESSION['tipo']);?>
+                    <?php unset($_SESSION['flash']);?>
                     <input type="email" name="email" placeholder="E-mail" class="form-control" autofocus="true">
                 </div>
                 <div class="form-group">
